@@ -9,7 +9,7 @@ class CheckLogin(object):
         self.__users_info = []
         self.__tmp_name = ""
         self.__tmp_password = ""
-        self.user = {}
+        self.__user = {}
         self.__read_user_info()
         self.tag = 0
         self.tag_list = ["登录成功", "用户不存在，请先注册！", "用户已锁定，请联系管理员！",
@@ -46,31 +46,31 @@ class CheckLogin(object):
 
         for user in self.__users_info:
             if user["name"] == self.__tmp_name:
-                self.user = user
+                self.__user = user
                 # self.tag_list[0] = user
                 return True
         return False
 
     def __check_user_lock(self):
 
-        if self.user["lock"]:
+        if self.__user["lock"]:
             return True
         return False
 
     def __check_user_error(self):
 
-        if self.user["error"] == USER_LOCK_TIMES:
-            self.user["lock"] = True
+        if self.__user["error"] == USER_LOCK_TIMES:
+            self.__user["lock"] = True
             return True
-        self.tag_list[4] = "错误密码,已错误输入 %d 次" % self.user["error"]
+        self.tag_list[4] = "错误密码,已错误输入 %d 次" % self.__user["error"]
         return False
 
     def __check_user_password(self):
 
-        if self.user["password"] == self.__tmp_password:
-            self.user["error"] = 0
+        if self.__user["password"] == self.__tmp_password:
+            self.__user["error"] = 0
             return True
-        self.user["error"] += 1
+        self.__user["error"] += 1
         return False
 
     def __check_info(self):
