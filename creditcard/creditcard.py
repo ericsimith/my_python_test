@@ -11,7 +11,7 @@ ACCOUNT_DATE = calendar.monthrange(datetime.datetime.today().year, datetime.date
 REPAYMENT_DATE = 10
 
 
-def ismoney(money_str):
+def is_money(money_str):
     value = re.compile(r'^[0-9]+\.[0-9][0-9]$')
     return value.match(money_str)
 
@@ -38,7 +38,7 @@ class CreditCard:
             print("欢迎下次提款")
             return
 
-        if not ismoney(money):
+        if not is_money(money):
             print("违法字符，请重新输入")
             self.drawing()
             return
@@ -79,7 +79,7 @@ class CreditCard:
             print("欢迎下次还款")
             return
 
-        if not ismoney(money):
+        if not is_money(money):
             print("违法字符，请重新输入")
             self.drawing()
             return
